@@ -14,8 +14,8 @@ material.wireframe = true
 
 //sizes
 const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 800,
+    height: 600,
 
 }
 
@@ -43,8 +43,8 @@ const controls = new OrbitControls(camera, canvas)
 
 //Resize
 window.addEventListener('resize', () => {
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
+    sizes.width = 800
+    sizes.height = 600
     //update camera
     camera.aspect = sizes.width/sizes.height
     camera.updateProjectionMatrix()
