@@ -48,7 +48,6 @@ function App() {
   return (
     <>
       <canvas id="myThreeJsCanvas" />
-      <h1>Hello world</h1>
     </>
   );
 }
