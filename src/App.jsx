@@ -31,7 +31,14 @@ function App() {
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
 
+    const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
+    const boxMaterial = new THREE.MeshNormalMaterial();
+    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+    scene.add(boxMesh);
+
     const animate = () => {
+      boxMesh.rotation.x += 0.01;
+      boxMesh.rotation.y += 0.01;
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
     };
