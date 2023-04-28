@@ -15,13 +15,17 @@ I have to take in user input, send that input to OpenAI API
 to be processed, and then use ChatGPT model to generate a response
 */
 
+// take in user input 
 const readline = require("readline");
 
+// allow user to input questions via command line and receive responses
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
+// use OpenAI API to generate response
+// completion with highest probability is returned as string
 async function generateResponse(prompt) {
   const model = "text-davinci-002";
   const completions = await openai.complete({
@@ -32,6 +36,8 @@ async function generateResponse(prompt) {
   return completions.choices[0].text;
 }
 
+// prompt user to input question, generate response, print response
+// to console, then calls askquestion again to prompt for another question
 async function askQuestion() {
   rl.question("How many sources of sustainable energy are there in 2023?", async (question) => {
     const response = await generateResponse(question);
