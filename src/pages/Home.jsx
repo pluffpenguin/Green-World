@@ -22,6 +22,36 @@ import model3D from "../Classes/importModels.js";
 
 const playerMovespeed = 0.5;
 
+function setup_map(scene){
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  ambientLight.castShadow = true;
+  scene.add(ambientLight);
+
+  const spotLight = new THREE.SpotLight(0xffffff, 1);
+  spotLight.castShadow = true;
+  spotLight.position.set(0, 64, 32);
+  scene.add(spotLight);
+
+  // Baseplate
+  const baseplateGeometry = new THREE.BoxGeometry(100, 1, 100);
+  const baseplateMaterial = new THREE.MeshStandardMaterial({color: "#00b84c"});
+  const baseplateMesh = new THREE.Mesh(baseplateGeometry, baseplateMaterial);
+  baseplateMesh.position.set(0, -1, 0);
+  scene.add(baseplateMesh);
+}
+
+function createInputListenerEvents(document, keysPressed){
+  document.addEventListener('keydown', (event) => {
+    console.log('key:', event.key.toLowerCase());
+    keysPressed[event.key.toLowerCase()] = true;
+  });
+
+  document.addEventListener('keyup', (event) => {
+    keysPressed[event.key.toLowerCase()] = false;
+  });
+}
+
 function getMovementDirection(keysPressed) {
   var movementDirection = new THREE.Vector3(0, 0, 0);
   if (keysPressed['w']){
@@ -84,15 +114,7 @@ function Home() {
     setup_renderer(renderer);
     document.body.appendChild(renderer.domElement);
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    ambientLight.castShadow = true;
-    scene.add(ambientLight);
-
-    const spotLight = new THREE.SpotLight(0xffffff, 1);
-    spotLight.castShadow = true;
-    spotLight.position.set(0, 64, 32);
-    scene.add(spotLight);
+    
 
     // [[ MARIO 2 ]]
     //initializes into the scene
@@ -103,32 +125,11 @@ function Home() {
     scene2.add(light)
     // [[ END OF MARIO 2 ]]
 
-    // Baseplate
-    const baseplateGeometry = new THREE.BoxGeometry(100, 1, 100);
-    const baseplateMaterial = new THREE.MeshStandardMaterial({color: "#00b84c"});
-    const baseplateMesh = new THREE.Mesh(baseplateGeometry, baseplateMaterial);
-    baseplateMesh.position.set(0, -1, 0);
-    scene.add(baseplateMesh);
-    
-    
-    // Player Block
-    // const playerGeometry = new THREE.CapsuleGeometry(2, 4, 10, 20);
-    // const playerMaterial = new THREE.MeshStandardMaterial({color: "#ffffff"});
-    // const playerMesh = new THREE.Mesh(playerGeometry, playerMaterial);
-    // playerMesh.position.set(0, 3, 0);
-    // scene.add(PlayerController.getPlayerMesh());
-
+    setup_map(scene);
     // Input Event Listener
 
     let keysPressed = {};
-    document.addEventListener('keydown', (event) => {
-      console.log('key:', event.key.toLowerCase());
-      keysPressed[event.key.toLowerCase()] = true;
-    });
-
-    document.addEventListener('keyup', (event) => {
-      keysPressed[event.key.toLowerCase()] = false;
-    });
+    createInputListenerEvents(document, keysPressed);
 
     // Animate
     const animate = () => {
@@ -138,7 +139,6 @@ function Home() {
       PlayerController.updateMovement(movementDirection);
       PlayerController.updateCamera();
       // Update function
-      
       
       // PlayerController.setLookAt(playerMesh.position);
         
