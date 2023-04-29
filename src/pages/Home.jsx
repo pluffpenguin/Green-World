@@ -20,8 +20,10 @@ import Model3D from "../classes/importModels";
 
 import { TestBuilding } from "../Classes/testBuilding";
 
+import { InteractionSystem } from "../Classes/InteractionSystem";
+
 // Constant Variable Settings
-const playerMovespeed = 0.5;
+const playerMovespeed = 1;
 // ------------------------------------------------------------------------------------------
 // [[ HELPER FUNCTIONS ]]
 function setup_map(scene){
@@ -36,7 +38,7 @@ function setup_map(scene){
   scene.add(spotLight);
 
   // Baseplate
-  const baseplateGeometry = new THREE.BoxGeometry(100, 1, 100);
+  const baseplateGeometry = new THREE.BoxGeometry(500, 1, 500);
   const baseplateMaterial = new THREE.MeshStandardMaterial({color: "#00b84c"});
   const baseplateMesh = new THREE.Mesh(baseplateGeometry, baseplateMaterial);
   baseplateMesh.position.set(0, -1, 0);
@@ -119,16 +121,6 @@ function Home() {
     });
     setup_renderer(renderer);
 
-    // Lighting
-    // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    // ambientLight.castShadow = true;
-    // scene.add(ambientLight);
-
-    // const spotLight = new THREE.SpotLight(0xffffff, 1);
-    // spotLight.castShadow = true;
-    // spotLight.position.set(0, 64, 32);
-    // scene.add(spotLight);
-
     // Baseplate
     const baseplateGeometry = new THREE.BoxGeometry(100, 1, 100);
     const baseplateMaterial = new THREE.MeshStandardMaterial({
@@ -144,19 +136,26 @@ function Home() {
     let keysPressed = {};
     createInputListenerEvents(document, keysPressed);
 
-    // Test Buildings
-    // ( scene, sizeParams, hexcolor, position, activationRadius )
+    // Buildings + Interaction System 
     
+    // System Building Check
+    // let building1Position = new THREE.Vector3(-40, 10, -40);
+    // let building1 = new TestBuilding(scene, "Wind Turbine", {radius:5, height:20}, "#ff1fa9", building1Position, 10);
+    // scene.add(building1.buildMesh);
+
+    let system = new InteractionSystem(scene);
+    system.setup_buildings();
 
     // Animate
     const animate = () => {
-      // Player Movement Update
       logoModel.rotate_y(0.02);
-      // boxMesh.rotation.x += 0.01;
-      // boxMesh.rotation.y += 0.01;
+      
+      // Player Movement Update
       let movementDirection = getMovementDirection(keysPressed);
       PlayerController.updateMovement(movementDirection);
       PlayerController.updateCamera();
+
+      system.checkBuildingProximity(PlayerController.playerMesh.position);
 
       // Render into the scene
       renderer.render(scene, PlayerController.camera);
