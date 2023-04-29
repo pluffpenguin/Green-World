@@ -35,11 +35,12 @@ NAV BAR
 
 .logo__wrapper {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 6px;
 }
 
 .logo {
-  width: 32px;
+  width: 60px;
   color: #242424;
   transition: all 500ms ease;
 }
@@ -162,5 +163,5 @@ MODAL
 }
 
 .close__button:hover {
-  cursor: pointer;
+  cursor: pointer; 
 }
