@@ -1,4 +1,9 @@
 import {useEffect} from "react";
+import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
+import {OBJLoader} from "three/addons/loaders/OBJLoader.js";
+import { VOXLoader} from "three/addons/loaders/VOXLoader.js";
+import { GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+
 import * as THREE from "three";
 import "./App.css";
 
@@ -25,7 +30,7 @@ function App() {
 
     const scene2 = new THREE.Scene();
     const cam2 = new THREE.PerspectiveCamera(
-        90,
+        5,
         1,
         0.1,
         1000
@@ -39,6 +44,7 @@ function App() {
     });
     renderer2.setSize(250, 250);
     canvas2_container.appendChild(renderer2.domElement)
+
 
 
 
@@ -60,18 +66,56 @@ function App() {
     scene.add(spotLight);
 
     const baseplateGeometry = new THREE.BoxGeometry(100, 1, 100);
-    const baseplateMaterial = new THREE.MeshNormalMaterial();
+    const baseplateMaterial = new THREE.MeshStandardMaterial({
+      color: "#055205"
+        }
+    );
     const baseplateMesh = new THREE.Mesh(baseplateGeometry, baseplateMaterial);
-    scene.add(baseplateMesh);
 
-    const sphere = new THREE.SphereGeometry(16,16,16);
-    const sphereMat = new THREE.MeshNormalMaterial();
-    const sphereMesh = new THREE.Mesh(sphere, sphereMat);
-    scene2.add(sphereMesh);
+    scene.add(baseplateMesh);
+    const ambientLight2 = new THREE.AmbientLight(0xffffff, 0.5);
+    ambientLight2.castShadow = true;
+    scene2.add(ambientLight);
+
+
+    const spotLight2 = new THREE.SpotLight(0xffffff, 1);
+    spotLight2.castShadow = true;
+    spotLight2.position.set(0, 64, 32);
+    scene2.add(spotLight2);
+
+
+
+    let loadedModel = new THREE.Object3D();
+    const loader = new GLTFLoader();
+    loader.load ('src/assets/models/low_poly_earth.gltf', function ( gltf ) {
+          // add the model to the scene
+          loadedModel = gltf.scene;
+          loadedModel.traverse( function ( child ) {
+            if ( child.isMesh ) {
+              if (child.material.map) {
+                // This is a textured material, so we don't want to modify its color
+                return;
+              }
+              // Set the material color to the original color
+              child.material.color = child.material.color.clone();
+            }
+          });
+          scene2.add( loadedModel );
+        },
+        // callback function called while the model is loading
+        function ( xhr ) {
+          console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },
+        // callback function called if an error occurs while loading the model
+        function ( error ) {
+          console.log( 'An error happened' );
+        }
+    );
 
     baseplateMesh.rotation.x = .6
 
     const animate = () => {
+      loadedModel.rotation.y += 0.02;
       // baseplateMesh.rotation.x += 0.01;
       // baseplateMesh.rotation.y += 0.01;
       renderer.render(scene, camera);
