@@ -1,12 +1,12 @@
 // initializing everything
 const dotenv = require("dotenv")
-dotenv.config()
+dotenv.config();
 
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY
-})
+});
 
 const openai = new OpenAIApi(configuration);
 
@@ -55,7 +55,7 @@ const energySourceTemplate = {
   location: ""
 };
 
-export async function getEnergySourceData(name) {
+async function getEnergySourceData(name) {
   const descriptionPrompt = `Can you describe in two sentences, the sustainable energy resource ${name} and how it generates energy?`;
   const descriptionResponse = await generateText(descriptionPrompt);
   const description = descriptionResponse.data.choices[0].message.content;

@@ -47,7 +47,6 @@ function setup_map(scene){
 
 function createInputListenerEvents(document, keysPressed){
   document.addEventListener('keydown', (event) => {
-    console.log('key:', event.key.toLowerCase());
     keysPressed[event.key.toLowerCase()] = true;
   });
 
@@ -96,7 +95,6 @@ function Home() {
     const cam2 = new THREE.PerspectiveCamera(5, 1, 0.1, 1000);
     cam2.position.z = 30;
     const canvas2 = document.getElementById("globe-3js");
-    console.log(canvas2);
     const renderer2 = new THREE.WebGLRenderer({
       canvas: canvas2,
       antialias: true,

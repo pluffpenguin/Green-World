@@ -8,8 +8,9 @@ export class TestBuilding{
         this.buildMesh = new THREE.Mesh(this.buildGeometry, this.buildMaterial);
         this.buildMesh.position.set(position.x, position.y, position.z);
         scene.add(this.buildMesh);
-        // console.log('testBuilding.jsx: added BUILD MESH to scene: ', scene);
+        
         this.activationRadius = activationRadius;
+        this.info = null;
     }
 
     checkPosition(playerPosition){
