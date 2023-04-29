@@ -2,11 +2,12 @@ import * as THREE from "three";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
 export default class model3D {
-    constructor(string, scene) {
-
+    constructor(path, scene, activationRadius) {
+        
         this.loadedModel = new THREE.Object3D();
+        this.activationRadius = activationRadius;
         const loader = new GLTFLoader();
-        loader.load(string, (gltf) => {
+        loader.load(path, (gltf) => {
                 // add the model to the scene
                 this.loadedModel = gltf.scene;
                 this.loadedModel.traverse(function (child) {
@@ -33,6 +34,9 @@ export default class model3D {
     }
     rotate_y(stud){
         this.loadedModel.rotation.y += stud;
+    }
+    checkPosition(playerPosition){
+        return this.loadedModel.position.distanceTo(playerPosition) < this.activationRadius;
     }
 }
 

@@ -18,10 +18,14 @@ import {OBJLoader} from "three/addons/loaders/OBJLoader.js";
 import { VOXLoader} from "three/addons/loaders/VOXLoader.js";
 import { GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
-import model3D from "../Classes/importModels.js";
+import Model3D from "../Classes/importModels.js";
 
+import { TestBuilding } from "../Classes/testBuilding";
+
+// Constant Variable Settings
 const playerMovespeed = 0.5;
-
+// ------------------------------------------------------------------------------------------
+// [[ HELPER FUNCTIONS ]]
 function setup_map(scene){
   // Lighting
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -75,6 +79,9 @@ function getMovementDirection(keysPressed) {
   return movementDirection;
 }
 
+// ------------------------------------------------------------------------------------------
+
+
 function Home() {
   const [showModal, setShowModal] = useState(false); // set true for testing, false for production
 
@@ -83,7 +90,6 @@ function Home() {
 
     let PlayerController = new PlayerClass(scene);
     // Input Controller
-
 
     // [[ MARIO 1 ]]
     const scene2 = new THREE.Scene();
@@ -104,7 +110,14 @@ function Home() {
     renderer2.setClearColor( 0x000000, 0 );
     canvas2_container.appendChild(renderer2.domElement);
 
-    // [[ END OF MARIO 1 ]]
+    // [[ MARIO 2 ]]
+    //initializes into the scene
+    let logoModel = new Model3D('src/assets/models/low_poly_earth.gltf', scene2, 10);
+    const light = new THREE.PointLight(0xffffff, 2, 200);
+    light.position.set(4.5, 10, 4.5)
+    scene2.add(light)
+    // [[ END OF MARIO 2 ]]
+
 
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new THREE.WebGLRenderer({
@@ -114,36 +127,24 @@ function Home() {
     setup_renderer(renderer);
     document.body.appendChild(renderer.domElement);
 
-    // [[ MARIO 2 ]]
-    //initializes into the scene
-    let logoModel = new model3D('src/assets/models/low_poly_earth.gltf', scene2)
-
-    const light = new THREE.PointLight(0xffffff, 2, 200);
-    light.position.set(4.5, 10, 4.5)
-    scene2.add(light)
-    // [[ END OF MARIO 2 ]]
-
     setup_map(scene);
-    // Input Event Listener
 
+    // Input Event Listener
     let keysPressed = {};
     createInputListenerEvents(document, keysPressed);
 
+    // Test Buildings
+    let building1Position = new THREE.Vector3(-40, 10, -40);
+    let building1 = new TestBuilding(scene, building1Position, 10);
+
     // Animate
     const animate = () => {
-      // boxMesh.rotation.x += 0.01;
-      // boxMesh.rotation.y += 0.01;
+      // Player Movement Update
       let movementDirection = getMovementDirection(keysPressed);
       PlayerController.updateMovement(movementDirection);
       PlayerController.updateCamera();
-      // Update function
-      
-      // PlayerController.setLookAt(playerMesh.position);
-        
-      // update_movement(playerMesh, keysPressed);
-      // console.log('cam pos:', PlayerController.getCameraPosition());
-      // console.log('keys:', 'w: ', keysPressed['w'], 'a: ', keysPressed['a'], 's: ', keysPressed['s'], 'd: ', keysPressed['d']);
-      
+
+      // Render into the scene
       renderer.render(scene, PlayerController.camera);
       window.requestAnimationFrame(animate);
     };
