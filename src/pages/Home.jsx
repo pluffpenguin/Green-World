@@ -12,6 +12,14 @@ import Modal from "../components/Modal";
 import { AnimatePresence } from "framer-motion";
 
 
+// [[ MARIO 4 IMPORTS ]]
+import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
+import {OBJLoader} from "three/addons/loaders/OBJLoader.js";
+import { VOXLoader} from "three/addons/loaders/VOXLoader.js";
+import { GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
+
+import model3D from "../Classes/importModels.js";
+
 const playerMovespeed = 0.5;
 
 function getMovementDirection(keysPressed) {
@@ -46,6 +54,28 @@ function Home() {
     let PlayerController = new PlayerClass(scene);
     // Input Controller
 
+
+    // [[ MARIO 1 ]]
+    const scene2 = new THREE.Scene();
+    const cam2 = new THREE.PerspectiveCamera(
+        5,
+        1,
+        0.1,
+        1000
+    )
+    cam2.position.z = 30;
+    const canvas2 = document.getElementById("myThreeJsCanvas2")
+    const canvas2_container = document.getElementById("canvas2-container")
+    const renderer2 = new THREE.WebGLRenderer({
+      canvas2,
+      antialias: true,
+    });
+    renderer2.setSize(80, 80);
+    renderer2.setClearColor( 0x000000, 0 );
+    canvas2_container.appendChild(renderer2.domElement);
+
+    // [[ END OF MARIO 1 ]]
+
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -63,6 +93,15 @@ function Home() {
     spotLight.castShadow = true;
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
+
+    // [[ MARIO 2 ]]
+    //initializes into the scene
+    let logoModel = new model3D('src/assets/models/low_poly_earth.gltf', scene2)
+
+    const light = new THREE.PointLight(0xffffff, 2, 200);
+    light.position.set(4.5, 10, 4.5)
+    scene2.add(light)
+    // [[ END OF MARIO 2 ]]
 
     // Baseplate
     const baseplateGeometry = new THREE.BoxGeometry(100, 1, 100);
@@ -115,6 +154,7 @@ function Home() {
 
   return (
     <>
+      <div id="canvas2-container"></div>
       <canvas id="myThreeJsCanvas" />
       <Nav showModal={showModal} setShowModal={setShowModal} />
 
