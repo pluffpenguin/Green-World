@@ -48,19 +48,37 @@ const energySourceTemplate = {
 
 async function getEnergySourceData(name) {
   const descriptionPrompt = `Can you describe in two sentences, the sustainable energy resource ${name} and how it generates energy?`;
-  const description = await generateText(descriptionPrompt);
+  const descriptionResponse = await generateText(descriptionPrompt);
+  const description = descriptionResponse.data.choices[0].message.content;
   const energySource = { ...energySourceTemplate, name, description };
-  const adjustment = "Please explain it in a way so a middle schooler can understand it in 2-3 sentences.";
-  energySource.pros = await generateText(`What are the pros of ${name}? ` + adjustment);
-  energySource.cons = await generateText(`What are the cons of ${name}? ` + adjustment);
-  energySource.cost = await generateText(`How much does it cost to build ${name}?`);
-  energySource.efficiency = await generateText(`How efficient is ${name}? ` + adjustment);
-  energySource.future = await generateText(`What is the future of ${name}?` + adjustment);
-  energySource.location = await generateText(`Where should ${name} be built?` + adjustment);
+  
+  const adjustment = "Please explain it in a way so a middle schooler can understand it in 2-3 sentences. Make sure not to include anything about 'As an AI language model'. ";
+  
+  const prosResponse = await generateText(`What are the pros of ${name}? ` + adjustment);
+  energySource.pros = prosResponse.data.choices[0].message.content;
+
+  const consResponse = await generateText(`What are the cons of ${name}? ` + adjustment);
+  energySource.cons = consResponse.data.choices[0].message.content;
+
+  const costResponse = await generateText(`How much does it cost to build ${name}?`);
+  energySource.cost = costResponse.data.choices[0].message.content;
+
+  const efficiencyResponse = await generateText(`How efficient is ${name}? ` + adjustment);
+  energySource.efficiency = efficiencyResponse.data.choices[0].message.content;
+
+  const futureResponse = await generateText(`What is the future of ${name}?` + adjustment);
+  energySource.future = futureResponse.data.choices[0].message.content;
+
+  const locationResponse = await generateText(`Where should ${name} be built?` + adjustment);
+  energySource.location = locationResponse.data.choices[0].message.content;
+
   return energySource;
 }
 
-generateText("wind turbine").then((response) => {
-  console.log(response.data.choices[0].message.content)
-})
 
+(async () => {
+  for (const energySource of energySources) {
+    const data = await getEnergySourceData(energySource);
+    console.log(data);
+  }
+})();
