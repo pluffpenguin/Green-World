@@ -1,9 +1,9 @@
 import * as THREE from "three";
 
 export class TestBuilding{
-    constructor(scene, sizeParams, hexcolor, position, activationRadius){
+    constructor(scene, buildingName, sizeParams, hexcolor, position, activationRadius){
         this.buildGeometry = new THREE.CylinderGeometry(sizeParams.radius, sizeParams.radius, sizeParams.height, 32);
-        // this.buildMaterial = new THREE.MeshStandardMaterial({color: "#ff4069"});
+        this.buildingName = buildingName;
         this.buildMaterial = new THREE.MeshStandardMaterial({color: hexcolor});
         this.buildMesh = new THREE.Mesh(this.buildGeometry, this.buildMaterial);
         this.buildMesh.position.set(position.x, position.y, position.z);

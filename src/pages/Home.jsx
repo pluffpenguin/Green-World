@@ -146,8 +146,7 @@ function Home() {
 
     // Test Buildings
     // ( scene, sizeParams, hexcolor, position, activationRadius )
-    let building1Position = new THREE.Vector3(-40, 10, -40);
-    let building1 = new TestBuilding(scene, {radius:5, height:20}, building1Position, 10);
+    
 
     // Animate
     const animate = () => {
