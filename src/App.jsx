@@ -2,9 +2,27 @@ import { useEffect, useState } from "react";
 import * as THREE from "three";
 import "./App.css";
 
+import { setup_renderer } from "./Classes/Settings.jsx"
+
 import CameraClass from "./Classes/Camera.jsx";
 
+const playerMovespeed = 0.5;
+let keyPressed = {};
 
+function update_movement(playerMesh) {
+  if (keyPressed['w']){
+    playerMesh.position.x += playerMovespeed;
+  }
+  if (keyPressed['a']){
+    playerMesh.position.z += playerMovespeed;
+  }
+  if (keyPressed['s']){
+    playerMesh.position.x -= playerMovespeed;
+  }
+  if (keyPressed['d']){
+    playerMesh.position.z -= playerMovespeed;
+  }
+}
 
 function App() {
   useEffect(() => {
@@ -18,7 +36,7 @@ function App() {
       canvas,
       antialias: true,
     });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    setup_renderer(renderer);
     document.body.appendChild(renderer.domElement);
 
     // Lighting
@@ -33,34 +51,48 @@ function App() {
 
     // Baseplate
     const baseplateGeometry = new THREE.BoxGeometry(100, 1, 100);
-    const baseplateMaterial = new THREE.MeshNormalMaterial();
+    const baseplateMaterial = new THREE.MeshStandardMaterial({color: "#00b84c"});
     const baseplateMesh = new THREE.Mesh(baseplateGeometry, baseplateMaterial);
+    baseplateMesh.position.set(0, -1, 0);
     scene.add(baseplateMesh);
+    
+    
+    // Player Block
+    const playerGeometry = new THREE.CapsuleGeometry(2, 4, 10, 20);
+    const playerMaterial = new THREE.MeshStandardMaterial({color: "#ffffff"});
+    const playerMesh = new THREE.Mesh(playerGeometry, playerMaterial);
+    playerMesh.position.set(0, 3, 0);
+    scene.add(playerMesh);
 
-    // Input Controller
-    const onKeyDown = (event) => {
-      switch (event.keyCode) {
-        case 87: // w
-          CameraController.camera.position.z -= 1;
-          break;
-        case 65: // a
-          CameraController.camera.position.x -= 1;
-          break;
-        case 83: // s
-          CameraController.camera.position.z += 1;
-          break;
-        case 68: // d
-          CameraController.camera.position.x += 1;
-          break;
-      }
-    };
+    // Input Event Listener
 
-    window.addEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', (event) => {
+      console.log('key:', event.key.toLowerCase());
+      keyPressed[event.key.toLowerCase()] = true;
+      update_movement(playerMesh);
+    });
+
+    document.addEventListener('keyUp', (event) => {
+      keyPressed[event.key.toLowerCase()] = false;
+      update_movement(playerMesh);
+    });
 
     // Animate
     const animate = () => {
       // boxMesh.rotation.x += 0.01;
       // boxMesh.rotation.y += 0.01;
+
+      // Update Player Movement
+      // update_movement(playerMesh);
+
+      // Update function
+      // CameraController.setCameraPosition(new THREE.Vector3(
+        // playerMesh.position.x + CameraController.cdist, 
+        // playerMesh.position.y + CameraController.cdist, 
+        // playerMesh.position.z + CameraController.cdist));
+        // 10, 10, 10));
+      update_movement(playerMesh);
+      CameraController.setCameraLookAt(playerMesh.position);
       renderer.render(scene, CameraController.camera);
       window.requestAnimationFrame(animate);
     };

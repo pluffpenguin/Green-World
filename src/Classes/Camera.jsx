@@ -12,7 +12,7 @@ export default class CameraClass{
     }
 
     setup(){
-        this.cdist = 20;
+        this.cdist = 10;
         this.camera.position.x = this.cdist;
         this.camera.position.y = this.cdist;
         this.camera.position.z = this.cdist;
@@ -21,6 +21,14 @@ export default class CameraClass{
         // this.camera.rotation.x = -.2;
         // this.camera.rotation.y = .8;
         // this.camera.rotation.z = 0.556;
+    }
+
+    setCameraPosition(newPosition){
+        this.camera.position.set(newPosition);
+    }
+
+    setCameraLookAt(lookAtPos){
+        this.camera.lookAt(lookAtPos);
     }
 }
 
