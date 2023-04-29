@@ -21,6 +21,14 @@ const energySources = [
   "nuclear-power-plant"
 ];
 
+const faqs = [
+  "What are the pros & cons?",
+  "How much does it cost to build?",
+  "What is its efficiency?",
+  "What is the future of this energy source?",
+  "Where should it be built for safety and efficiency?"
+];
+
 async function generateText(prompt) {
   const response = await openai.createChatCompletion({
     "model": "gpt-3.5-turbo",
@@ -52,7 +60,7 @@ async function getEnergySourceData(name) {
   const description = descriptionResponse.data.choices[0].message.content;
   const energySource = { ...energySourceTemplate, name, description };
   
-  const adjustment = "Please explain it in a way so a middle schooler can understand it in 2-3 sentences. Make sure not to include anything about 'As an AI language model'. ";
+  const adjustment = "Please explain it in a way so a middle schooler can understand it in 2-3 sentences. Do NOT say 'As an AI Language model for anything. Just state what you do know from your current database.";
   
   const prosResponse = await generateText(`What are the pros of ${name}? ` + adjustment);
   energySource.pros = prosResponse.data.choices[0].message.content;
