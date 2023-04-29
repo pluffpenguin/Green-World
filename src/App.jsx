@@ -43,6 +43,7 @@ function App() {
       antialias: true,
     });
     renderer2.setSize(250, 250);
+    renderer2.setClearColor( 0x000000, 0 );
     canvas2_container.appendChild(renderer2.domElement)
 
 
@@ -71,17 +72,7 @@ function App() {
         }
     );
     const baseplateMesh = new THREE.Mesh(baseplateGeometry, baseplateMaterial);
-
-    scene.add(baseplateMesh);
-    const ambientLight2 = new THREE.AmbientLight(0xffffff, 0.5);
-    ambientLight2.castShadow = true;
-    scene2.add(ambientLight);
-
-
-    const spotLight2 = new THREE.SpotLight(0xffffff, 1);
-    spotLight2.castShadow = true;
-    spotLight2.position.set(0, 64, 32);
-    scene2.add(spotLight2);
+    scene.add(baseplateMesh)
 
 
 
@@ -111,6 +102,10 @@ function App() {
           console.log( 'An error happened' );
         }
     );
+
+    const light = new THREE.PointLight(0xffffff, 2, 200);
+    light.position.set(4.5, 10, 4.5)
+    scene2.add(light)
 
     baseplateMesh.rotation.x = .6
 
