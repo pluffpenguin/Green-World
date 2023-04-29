@@ -114,7 +114,7 @@ function Home() {
     //nuclear plant model
     let nuclearModel = new Model3D('src/assets/models/scene.gltf', scene, 10, -28, -1.2, 85);
     let windTurbine = new Model3D('src/assets/models/windTurbine.gltf', scene,10,0, -2);
-    let solar = new Model3D('src/assets/models/architecture_primatives/scene.gltf', scene20)
+
 
 
     const canvas = document.getElementById("myThreeJsCanvas");
