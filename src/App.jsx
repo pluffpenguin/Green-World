@@ -7,12 +7,22 @@ function App() {
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(
-      75,
+      90,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     );
-    camera.position.z = 96;
+    // Initial Camera positioning
+    const cdist = 20;
+    camera.position.x = cdist;
+    camera.position.y = cdist;
+    camera.position.z = cdist;
+    
+    camera.lookAt(new THREE.Vector3(0, 0, 0) );
+    camera.rotation.x = -.2;
+    camera.rotation.y = .8;
+    camera.rotation.z = 0.556;
+    
 
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new THREE.WebGLRenderer({
@@ -31,14 +41,16 @@ function App() {
     spotLight.position.set(0, 64, 32);
     scene.add(spotLight);
 
-    const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
-    const boxMaterial = new THREE.MeshNormalMaterial();
-    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-    scene.add(boxMesh);
+    const baseplateGeometry = new THREE.baseplateGeometry(100, 1, 100);
+    const baseplateMaterial = new THREE.MeshNormalMaterial();
+    const baseplateMesh = new THREE.Mesh(baseplateGeometry, baseplateMaterial);
+    scene.add(baseplateMesh);
+
+    baseplateMesh.rotation.x = .6
 
     const animate = () => {
-      boxMesh.rotation.x += 0.01;
-      boxMesh.rotation.y += 0.01;
+      // baseplateMesh.rotation.x += 0.01;
+      // baseplateMesh.rotation.y += 0.01;
       renderer.render(scene, camera);
       window.requestAnimationFrame(animate);
     };

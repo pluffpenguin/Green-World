@@ -27,3 +27,4 @@ async function get_response(prompt) {
 get_response(input).then((response) => {
   console.log(response.data.choices[0].message.content)
 })
+
