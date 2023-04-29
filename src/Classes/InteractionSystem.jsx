@@ -44,7 +44,7 @@ export class InteractionSystem{
             {radius:5, height:20}, 
             "#ffee00", 
         b4p, 20);
-        b4.buildMesh.visible = true;
+        b4.buildMesh.visible = false;
         b4.info = "This is a sustainable energy source that works by capturing the energy from the sun using solar panels or solar cells, which convert the energy into electricity.";
 
         
