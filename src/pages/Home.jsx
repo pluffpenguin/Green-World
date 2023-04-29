@@ -117,13 +117,13 @@ function Home() {
 
     //solar panels
     for (let i = 0; i < 5; i++) {
-      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 52 ,0,20 + (i*6))
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 52 ,5,20 + (i*6))
     }
     for (let i = 0; i < 5; i++) {
-      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 60 ,0,20 + (i*6))
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 60 ,5,20 + (i*6))
     }
     for (let i = 0; i < 5; i++) {
-      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 68 ,0,20 + (i*6))
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 68,5, 20 + (i*6))
     }
 
 
