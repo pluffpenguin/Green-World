@@ -162,3 +162,13 @@ MODAL
 .close__button:hover {
   cursor: pointer;
 }
+
+
+/* MARIO CANVAS CSS */
+#canvas2-container{
+  position: fixed;
+  top: 0;
+  left  : 0;
+  z-index: 5;
+
+}
