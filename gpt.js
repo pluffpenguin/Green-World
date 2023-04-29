@@ -55,7 +55,7 @@ const energySourceTemplate = {
   location: ""
 };
 
-async function getEnergySourceData(name) {
+export async function getEnergySourceData(name) {
   const descriptionPrompt = `Can you describe in two sentences, the sustainable energy resource ${name} and how it generates energy?`;
   const descriptionResponse = await generateText(descriptionPrompt);
   const description = descriptionResponse.data.choices[0].message.content;
@@ -83,11 +83,3 @@ async function getEnergySourceData(name) {
 
   return energySource;
 }
-
-
-(async () => {
-  for (const energySource of energySources) {
-    const data = await getEnergySourceData(energySource);
-    console.log(data);
-  }
-})();
