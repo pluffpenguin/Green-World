@@ -16,3 +16,9 @@
   color: white;
   font-size: 30px;
 }
+#canvas2-container{
+  position: fixed;
+  top: 0;
+  left  : 0;
+  border: 1px solid white
+}
