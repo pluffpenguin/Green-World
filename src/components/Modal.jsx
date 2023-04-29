@@ -1,9 +1,12 @@
 import React from "react";
-import placeholder from "../assets/placeholder.jpg";
 import List from "./List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
+import kiaran from "../assets/kiaran.jpg";
+import quincy from "../assets/quincy.jpeg";
+import rafa from "../assets/rafa.jpg";
+import mario from '../assets/mario.jpg'
 
 function Modal({ setShowModal }) {
   const containerVariants = {
@@ -58,10 +61,10 @@ function Modal({ setShowModal }) {
         >
           <h2 className="modal__credits--title">Meet the crew</h2>
           <ul className="modal__credits--list">
-            <List img={placeholder} name="Kiaran" />
-            <List img={placeholder} name="Mario" />
-            <List img={placeholder} name="Rafa" />
-            <List img={placeholder} name="Quincy" />
+            <List img={kiaran} name="Kiaran" />
+            <List img={mario} name="Mario" />
+            <List img={rafa} name="Rafa" />
+            <List img={quincy} name="Quincy" />
           </ul>
           <motion.div className="close__button">
             <FontAwesomeIcon

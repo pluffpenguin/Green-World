@@ -15,7 +15,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "dotenv": "^16.0.3",
-    "env": "^0.0.2",
     "framer-motion": "^10.12.4",
     "gsap": "^3.11.5",
     "openai": "^3.2.1",

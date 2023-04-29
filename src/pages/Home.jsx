@@ -22,6 +22,8 @@ import { TestBuilding } from "../Classes/testBuilding";
 
 import { InteractionSystem } from "../Classes/InteractionSystem";
 
+import TextBox from "../components/TextBox";
+
 // Constant Variable Settings
 const playerMovespeed = 1;
 // ------------------------------------------------------------------------------------------
@@ -49,6 +51,7 @@ function createInputListenerEvents(document, keysPressed){
   document.addEventListener('keydown', (event) => {
     keysPressed[event.key.toLowerCase()] = true;
   });
+
 
   document.addEventListener('keyup', (event) => {
     keysPressed[event.key.toLowerCase()] = false;
@@ -83,7 +86,8 @@ function getMovementDirection(keysPressed) {
 
 function Home() {
   const [showModal, setShowModal] = useState(false); // set true for testing, false for production
-
+  const [showText, setShowText] = useState("");
+  
   useEffect(() => {
     const scene = new THREE.Scene();
 
@@ -126,8 +130,6 @@ function Home() {
     for (let i = 0; i < 5; i++) {
       new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, sp.x + 8*2, 0, sp.z + (i*6))
     }
-
-
 
     const canvas = document.getElementById("myThreeJsCanvas");
     const renderer = new THREE.WebGLRenderer({
@@ -175,7 +177,13 @@ function Home() {
       PlayerController.updateCamera();
 
       if (count > countMax){
-        system.checkBuildingProximity(PlayerController.playerMesh.position);
+        let proximityResponse = system.checkBuildingProximity(PlayerController.playerMesh.position);
+        console.log('PR:', proximityResponse[0], "\n", proximityResponse[1]);
+        console.log(showText);
+        if (proximityResponse[0]){
+          // change the text here:
+          setShowText(proximityResponse[1]);
+        }
         count = 0;
       }
       else{
@@ -194,7 +202,7 @@ function Home() {
       <Nav
         canvas={
           <div id="canvas2-container" className="logo">
-            <canvas id="globe-3js" /> 
+            <canvas id="globe-3js" />
           </div>
         }
         showModal={showModal}

@@ -16,4 +16,8 @@ export class TestBuilding{
     checkPosition(playerPosition){
         return this.buildMesh.position.distanceTo(playerPosition) <= this.activationRadius;
     }
+
+    setInfo(text){
+        this.info = text;
+    }
 }
