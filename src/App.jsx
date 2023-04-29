@@ -42,7 +42,7 @@ function App() {
       canvas2,
       antialias: true,
     });
-    renderer2.setSize(250, 250);
+    renderer2.setSize(80, 80);
     renderer2.setClearColor( 0x000000, 0 );
     canvas2_container.appendChild(renderer2.domElement)
 
@@ -108,9 +108,16 @@ function App() {
     scene2.add(light)
 
     baseplateMesh.rotation.x = .6
-
+    let clock = new THREE.Clock();
+    let delta = 0;
+    let interval = 1/30;
     const animate = () => {
       loadedModel.rotation.y += 0.02;
+
+
+      function update(){
+        requestAnimationFrame(update)
+      }
       // baseplateMesh.rotation.x += 0.01;
       // baseplateMesh.rotation.y += 0.01;
       renderer.render(scene, camera);
