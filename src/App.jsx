@@ -4,31 +4,42 @@ import "./App.css";
 
 import { setup_renderer } from "./Classes/Settings.jsx"
 
-import CameraClass from "./Classes/Camera.jsx";
+// import CameraClass from "./Classes/Camera.jsx";
+import PlayerClass from "./Classes/Player.jsx";
 
 const playerMovespeed = 0.5;
-let keyPressed = {};
 
-function update_movement(playerMesh) {
-  if (keyPressed['w']){
-    playerMesh.position.x += playerMovespeed;
+function getMovementDirection(keysPressed) {
+  var movementDirection = new THREE.Vector3(0, 0, 0);
+  if (keysPressed['w']){
+    // playerMesh.position.x -= playerMovespeed;
+    movementDirection.x -= playerMovespeed;
   }
-  if (keyPressed['a']){
-    playerMesh.position.z += playerMovespeed;
+  if (keysPressed['a']){
+    // playerMesh.position.z += playerMovespeed;
+    movementDirection.z += playerMovespeed;
   }
-  if (keyPressed['s']){
-    playerMesh.position.x -= playerMovespeed;
+  if (keysPressed['s']){
+    // playerMesh.position.x += playerMovespeed;
+    movementDirection.x += playerMovespeed;
   }
-  if (keyPressed['d']){
-    playerMesh.position.z -= playerMovespeed;
+  if (keysPressed['d']){
+    // playerMesh.position.z -= playerMovespeed;
+    movementDirection.z -= playerMovespeed;
   }
+  // Rotate around an Axis
+  var axis = new THREE.Vector3(0, 1, 0); // Normalized Vector
+  var angle = -Math.PI/4;
+  movementDirection.applyAxisAngle(axis, angle);
+  movementDirection.normalize();
+  return movementDirection;
 }
 
 function App() {
   useEffect(() => {
     const scene = new THREE.Scene();
 
-    let CameraController = new CameraClass();
+    let PlayerController = new PlayerClass(scene);
     // Input Controller
 
     const canvas = document.getElementById("myThreeJsCanvas");
@@ -58,42 +69,42 @@ function App() {
     
     
     // Player Block
-    const playerGeometry = new THREE.CapsuleGeometry(2, 4, 10, 20);
-    const playerMaterial = new THREE.MeshStandardMaterial({color: "#ffffff"});
-    const playerMesh = new THREE.Mesh(playerGeometry, playerMaterial);
-    playerMesh.position.set(0, 3, 0);
-    scene.add(playerMesh);
+    // const playerGeometry = new THREE.CapsuleGeometry(2, 4, 10, 20);
+    // const playerMaterial = new THREE.MeshStandardMaterial({color: "#ffffff"});
+    // const playerMesh = new THREE.Mesh(playerGeometry, playerMaterial);
+    // playerMesh.position.set(0, 3, 0);
+    // scene.add(PlayerController.getPlayerMesh());
 
     // Input Event Listener
 
+    let keysPressed = {};
     document.addEventListener('keydown', (event) => {
       console.log('key:', event.key.toLowerCase());
-      keyPressed[event.key.toLowerCase()] = true;
-      update_movement(playerMesh);
+      keysPressed[event.key.toLowerCase()] = true;
     });
 
-    document.addEventListener('keyUp', (event) => {
-      keyPressed[event.key.toLowerCase()] = false;
-      update_movement(playerMesh);
+    document.addEventListener('keyup', (event) => {
+      keysPressed[event.key.toLowerCase()] = false;
     });
 
     // Animate
     const animate = () => {
       // boxMesh.rotation.x += 0.01;
       // boxMesh.rotation.y += 0.01;
-
-      // Update Player Movement
-      // update_movement(playerMesh);
-
+      let movementDirection = getMovementDirection(keysPressed);
+      console.log('in app: ', movementDirection);
+      PlayerController.updateMovement(movementDirection);
+      PlayerController.updateCamera();
       // Update function
-      // CameraController.setCameraPosition(new THREE.Vector3(
-        // playerMesh.position.x + CameraController.cdist, 
-        // playerMesh.position.y + CameraController.cdist, 
-        // playerMesh.position.z + CameraController.cdist));
-        // 10, 10, 10));
-      update_movement(playerMesh);
-      CameraController.setCameraLookAt(playerMesh.position);
-      renderer.render(scene, CameraController.camera);
+      
+      
+      // PlayerController.setLookAt(playerMesh.position);
+        
+      // update_movement(playerMesh, keysPressed);
+      // console.log('cam pos:', PlayerController.getCameraPosition());
+      // console.log('keys:', 'w: ', keysPressed['w'], 'a: ', keysPressed['a'], 's: ', keysPressed['s'], 'd: ', keysPressed['d']);
+      
+      renderer.render(scene, PlayerController.camera);
       window.requestAnimationFrame(animate);
     };
     animate();
