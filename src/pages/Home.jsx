@@ -17,6 +17,7 @@ import { VOXLoader } from "three/addons/loaders/VOXLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 import model3D from "../Classes/importModels.js";
+import TextBox from "../components/TextBox";
 
 const playerMovespeed = 0.5;
 
@@ -151,11 +152,11 @@ function Home() {
   return (
     <>
       <Nav
-        canvas={[
+        canvas={
           <div id="canvas2-container" className="logo">
-            <canvas id="globe-3js" /> 
-          </div>,
-        ]}
+            <canvas id="globe-3js" />
+          </div>
+        }
         showModal={showModal}
         setShowModal={setShowModal}
       />
