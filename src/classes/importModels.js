@@ -28,7 +28,7 @@ export default class model3D {
             },
             // callback function called if an error occurs while loading the model
             function (error) {
-                console.log('An error happened');
+                console.log(error);
             }
         );
     }

@@ -1,13 +1,13 @@
 import React from "react";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo.png";  
 
-function Nav({ showModal, setShowModal }) {
+function Nav({ canvas, showModal, setShowModal }) {
   return (
     <>
       <div className="container">
         <nav className="navbar">
           <figure className="logo__wrapper">
-            <img src={Logo} className="logo" />
+            {canvas}
             <h1 className="logo__title">
               <span className="logo__title--green">Green</span> World
             </h1>

@@ -4,7 +4,7 @@ import Model3D from "./importModels.js";
 
 export class TestBuilding{
     constructor(scene, sizeParams, hexcolor, position, activationRadius){
-        this.buildGeometry = new THREE.CylinderGeometry(sizeParams.radius, sizeParams.radius, 20, 32);
+        this.buildGeometry = new THREE.CylinderGeometry(sizeParams.radius, sizeParams.radius, sizeParams.height, 32);
         // this.buildMaterial = new THREE.MeshStandardMaterial({color: "#ff4069"});
         this.buildMaterial = new THREE.MeshStandardMaterial({color: hexcolor});
         this.buildMesh = new THREE.Mesh(this.buildGeometry, this.buildMaterial);

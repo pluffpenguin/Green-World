@@ -22,15 +22,25 @@ NAV BAR
 
 */
 
+.navbar {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px;
+  width: 1100px;
+}
+
 /* LOGO */
 
 .logo__wrapper {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 6px;
 }
 
 .logo {
-  width: 32px;
+  width: 60px;
   color: #242424;
   transition: all 500ms ease;
 }
@@ -57,13 +67,6 @@ NAV BAR
 }
 
 /* ABOUT */
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 40px;
-}
 
 #about {
   padding: 8px 16px;
@@ -160,15 +163,5 @@ MODAL
 }
 
 .close__button:hover {
-  cursor: pointer;
-}
-
-
-/* MARIO CANVAS CSS */
-#canvas2-container{
-  position: fixed;
-  top: 0;
-  left  : 0;
-  z-index: 5;
-
+  cursor: pointer; 
 }
