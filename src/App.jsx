@@ -4,6 +4,8 @@ import {OBJLoader} from "three/addons/loaders/OBJLoader.js";
 import { VOXLoader} from "three/addons/loaders/VOXLoader.js";
 import { GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
+import model3D from "./classes/importModels.js";
+
 import * as THREE from "three";
 import "./App.css";
 
@@ -74,34 +76,8 @@ function App() {
     const baseplateMesh = new THREE.Mesh(baseplateGeometry, baseplateMaterial);
     scene.add(baseplateMesh)
 
-
-
-    let loadedModel = new THREE.Object3D();
-    const loader = new GLTFLoader();
-    loader.load ('src/assets/models/low_poly_earth.gltf', function ( gltf ) {
-          // add the model to the scene
-          loadedModel = gltf.scene;
-          loadedModel.traverse( function ( child ) {
-            if ( child.isMesh ) {
-              if (child.material.map) {
-                // This is a textured material, so we don't want to modify its color
-                return;
-              }
-              // Set the material color to the original color
-              child.material.color = child.material.color.clone();
-            }
-          });
-          scene2.add( loadedModel );
-        },
-        // callback function called while the model is loading
-        function ( xhr ) {
-          console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // callback function called if an error occurs while loading the model
-        function ( error ) {
-          console.log( 'An error happened' );
-        }
-    );
+    //initializes into the scene
+    let logoModel = new model3D('src/assets/models/low_poly_earth.gltf', scene2)
 
     const light = new THREE.PointLight(0xffffff, 2, 200);
     light.position.set(4.5, 10, 4.5)
@@ -112,7 +88,7 @@ function App() {
     let delta = 0;
     let interval = 1/30;
     const animate = () => {
-      loadedModel.rotation.y += 0.02;
+      logoModel.rotate_y(0.02);
 
 
       function update(){
