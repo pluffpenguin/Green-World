@@ -112,18 +112,19 @@ function Home() {
     // [[ END OF MARIO 2 ]]
 
     //nuclear plant model
-    let nuclearModel = new Model3D('src/assets/models/scene.gltf', scene, 20, -28, -1.2, 85);
-    let windTurbine = new Model3D('src/assets/models/windTurbine.gltf', scene, 20, 10,0, -2);
+    let nuclearModel = new Model3D('src/assets/models/scene.gltf', scene, 20, -20, -1.2, 50);
+    let windTurbine = new Model3D('src/assets/models/windTurbine.gltf', scene, 20, -30, 0, -30);
 
     //solar panels
+    const sp = new THREE.Vector3(-20, 10, -80);
     for (let i = 0; i < 5; i++) {
-      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 52 ,5,20 + (i*6))
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, sp.x,0,sp.z + (i*6))
     }
     for (let i = 0; i < 5; i++) {
-      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 60 ,5,20 + (i*6))
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, sp.x + 8 ,0,sp.z + (i*6))
     }
     for (let i = 0; i < 5; i++) {
-      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 68,5, 20 + (i*6))
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, sp.x + 8*2, 0, sp.z + (i*6))
     }
 
 
@@ -160,7 +161,11 @@ function Home() {
     let system = new InteractionSystem(scene);
     system.setup_buildings();
 
-    // Animate
+
+    let count = 0;
+    let countMax = 20;
+
+    // Animate    
     const animate = () => {
       logoModel.rotate_y(0.02);
       
@@ -169,8 +174,13 @@ function Home() {
       PlayerController.updateMovement(movementDirection);
       PlayerController.updateCamera();
 
-      system.checkBuildingProximity(PlayerController.playerMesh.position);
-
+      if (count > countMax){
+        system.checkBuildingProximity(PlayerController.playerMesh.position);
+        count = 0;
+      }
+      else{
+        count += 1;
+      }
       // Render into the scene
       renderer.render(scene, PlayerController.camera);
       renderer2.render(scene2, cam2);

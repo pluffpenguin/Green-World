@@ -16,7 +16,7 @@ export class InteractionSystem{
             {radius:5, height:20}, 
             "#ff1fa9", 
             b1p, 20);
-        b1.buildMesh.visible = true;
+        b1.buildMesh.visible = false;
         
 
         let b2p = new THREE.Vector3(60, 10, -40);
@@ -25,13 +25,15 @@ export class InteractionSystem{
             {radius:5, height:20}, 
             "#9c4a2f", 
             b2p, 20);
-        
+        b2.buildMesh.visible = false;
+
         let b3p = new THREE.Vector3(-20, 10, 50);
         let b3 = new TestBuilding(
             this.scene, "Nuclear Power Plant", 
             {radius:5, height:20}, 
             "#03fc1c", 
             b3p, 20);
+        b3.buildMesh.visible = false;
 
         let b4p = new THREE.Vector3(-20, 10, -80);
         let b4 = new TestBuilding(
@@ -39,6 +41,8 @@ export class InteractionSystem{
             {radius:5, height:20}, 
             "#ffee00", 
         b4p, 20);
+        b4.buildMesh.visible = false;
+
         
         this.buildings.push(b1);
         this.buildings.push(b2);
