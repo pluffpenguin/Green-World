@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import Model3D from "./importModels.js";
 
 export default class PlayerClass{
     constructor(scene){
@@ -22,8 +23,10 @@ export default class PlayerClass{
         this.playerGeometry = new THREE.CapsuleGeometry(this.playerRadius, this.playerHeight, 10, 20);
         this.playerMaterial = new THREE.MeshStandardMaterial({color: "#ffffff"});
         this.playerMesh = new THREE.Mesh(this.playerGeometry, this.playerMaterial);
+        // this.playerModel = new Model3D('./src/assets/models/characterSKIN/amongUS.gltf', scene, 10);
+        // this.playerMesh = this.playerModel.loadedModel
         this.playerMesh.position.set(0, this.playerHeight, 0);
-        scene.add(this.playerMesh)
+        scene.add(this.playerMesh);
 
         this.setCameraTargetPosition(this.playerMesh.position + new THREE.Vector3(this.cdist, this.cdist, this.cdist));
     }

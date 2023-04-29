@@ -2,7 +2,7 @@ import * as THREE from "three";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
 export default class Model3D {
-    constructor(path, scene, activationRadius) {
+    constructor(path, scene, activationRadius, studx, study, studz ) {
         this.loadedModel = new THREE.Object3D();
         this.activationRadius = activationRadius;
         const loader = new GLTFLoader();
@@ -19,6 +19,7 @@ export default class Model3D {
                         child.material.color = child.material.color.clone();
                     }
                 });
+                this.setPosition(new THREE.Vector3(studx, study, studz));
                 scene.add(this.loadedModel);
             },
             // callback function called while the model is loading
@@ -36,6 +37,9 @@ export default class Model3D {
     }
     checkPosition(playerPosition){
         return this.loadedModel.position.distanceTo(playerPosition) < this.activationRadius;
+    }
+    setPosition(position) {
+        this.loadedModel.position.copy(position);
     }
 }
 

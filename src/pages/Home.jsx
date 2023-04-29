@@ -16,7 +16,7 @@ import {OBJLoader} from "three/addons/loaders/OBJLoader.js";
 import { VOXLoader} from "three/addons/loaders/VOXLoader.js";
 import { GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
-import Model3D from "../classes/importModels";
+import Model3D from "../Classes/importModels";
 
 import { TestBuilding } from "../Classes/testBuilding";
 
@@ -110,6 +110,11 @@ function Home() {
     light.position.set(4.5, 10, 4.5)
     scene2.add(light)
     // [[ END OF MARIO 2 ]]
+
+    //nuclear plant model
+    let nuclearModel = new Model3D('src/assets/models/scene.gltf', scene, 20, -28, -1.2, 85);
+    let windTurbine = new Model3D('src/assets/models/windTurbine.gltf', scene, 20, 10,0, -2);
+
 
 
     const canvas = document.getElementById("myThreeJsCanvas");
