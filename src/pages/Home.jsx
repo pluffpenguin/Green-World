@@ -115,6 +115,17 @@ function Home() {
     let nuclearModel = new Model3D('src/assets/models/scene.gltf', scene, 20, -28, -1.2, 85);
     let windTurbine = new Model3D('src/assets/models/windTurbine.gltf', scene, 20, 10,0, -2);
 
+    //solar panels
+    for (let i = 0; i < 5; i++) {
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 52 ,0,20 + (i*6))
+    }
+    for (let i = 0; i < 5; i++) {
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 60 ,0,20 + (i*6))
+    }
+    for (let i = 0; i < 5; i++) {
+      new Model3D('src/assets/models/soler_panel_setup/scene.gltf', scene, 10, 68 ,0,20 + (i*6))
+    }
+
 
 
     const canvas = document.getElementById("myThreeJsCanvas");
