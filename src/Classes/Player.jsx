@@ -9,10 +9,12 @@ export default class PlayerClass{
             1000
         );
         this.cdist = 20;
+        this.cameraOffset = new THREE.Vector3(this.cdist, this.cdist, this.cdist);
         this.setup();
 
         // Movement Configurations
         this.movementSpeed = 0.5;
+        this.cameraTween = 0.2;
 
         // Player Configurations
         this.playerHeight = 4;
@@ -20,8 +22,10 @@ export default class PlayerClass{
         this.playerGeometry = new THREE.CapsuleGeometry(this.playerRadius, this.playerHeight, 10, 20);
         this.playerMaterial = new THREE.MeshStandardMaterial({color: "#ffffff"});
         this.playerMesh = new THREE.Mesh(this.playerGeometry, this.playerMaterial);
-        this.playerMesh.position.set(0, this.playerHeight/2, 0);
+        this.playerMesh.position.set(0, this.playerHeight, 0);
         scene.add(this.playerMesh)
+
+        this.setCameraTargetPosition(this.playerMesh.position + new THREE.Vector3(this.cdist, this.cdist, this.cdist));
     }
 
     setup(){
@@ -29,32 +33,35 @@ export default class PlayerClass{
         this.camera.position.x = this.cdist;
         this.camera.position.y = this.cdist;
         this.camera.position.z = this.cdist;
-
+        this.camera.targetPosition = this.camera.position;
         this.camera.lookAt(new THREE.Vector3(0, 0, 0) );
     }
 
+    // Camera Functions
     setCameraPosition(newPosition){
         this.camera.position.set(newPosition.x, newPosition.y, newPosition.z);
     }
 
-    setCameraLookAt(lookAtPos){
-        this.camera.lookAt(lookAtPos);
+    setCameraTargetPosition(newPosition){
+        this.targetPosition = newPosition;
     }
 
     getCameraPosition(){
         return this.camera.position;
     }
 
+    setCameraLookAt(lookAtPos){
+        this.camera.lookAt(lookAtPos);
+    }
+
+    // Player Functions
     getPlayerMesh(){
         return this.playerMesh;
     }
 
     updateMovement(movementDirection){
-        console.log("playerPosition before:", this.playerMesh.position);
-        // console.log('received MD: ', movementDirection);
         this.playerMesh.position.x += movementDirection.x * this.movementSpeed;
         this.playerMesh.position.z += movementDirection.z * this.movementSpeed;
-        console.log("playerPosition AFTRER:", this.playerMesh.position);
     }
 
     updateCamera(){

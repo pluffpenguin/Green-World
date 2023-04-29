@@ -12,26 +12,23 @@ const playerMovespeed = 0.5;
 function getMovementDirection(keysPressed) {
   var movementDirection = new THREE.Vector3(0, 0, 0);
   if (keysPressed['w']){
-    // playerMesh.position.x -= playerMovespeed;
     movementDirection.x -= playerMovespeed;
   }
   if (keysPressed['a']){
-    // playerMesh.position.z += playerMovespeed;
     movementDirection.z += playerMovespeed;
   }
   if (keysPressed['s']){
-    // playerMesh.position.x += playerMovespeed;
     movementDirection.x += playerMovespeed;
   }
   if (keysPressed['d']){
-    // playerMesh.position.z -= playerMovespeed;
     movementDirection.z -= playerMovespeed;
   }
-  // Rotate around an Axis
+  // Rotate to compensate for the Camera's angle
   var axis = new THREE.Vector3(0, 1, 0); // Normalized Vector
   var angle = -Math.PI/4;
   movementDirection.applyAxisAngle(axis, angle);
   movementDirection.normalize();
+
   return movementDirection;
 }
 
@@ -92,7 +89,6 @@ function App() {
       // boxMesh.rotation.x += 0.01;
       // boxMesh.rotation.y += 0.01;
       let movementDirection = getMovementDirection(keysPressed);
-      console.log('in app: ', movementDirection);
       PlayerController.updateMovement(movementDirection);
       PlayerController.updateCamera();
       // Update function
