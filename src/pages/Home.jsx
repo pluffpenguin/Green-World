@@ -99,7 +99,7 @@ function Home() {
       canvas: canvas2,
       antialias: true,
     });
-    renderer2.setSize(80, 80);
+    renderer2.setSize(60, 60);
     renderer2.setClearColor( 0x000000, 0 );
     // canvas2_container.appendChild(renderer2.domElement);
 
@@ -120,14 +120,14 @@ function Home() {
     setup_renderer(renderer);
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    ambientLight.castShadow = true;
-    scene.add(ambientLight);
+    // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    // ambientLight.castShadow = true;
+    // scene.add(ambientLight);
 
-    const spotLight = new THREE.SpotLight(0xffffff, 1);
-    spotLight.castShadow = true;
-    spotLight.position.set(0, 64, 32);
-    scene.add(spotLight);
+    // const spotLight = new THREE.SpotLight(0xffffff, 1);
+    // spotLight.castShadow = true;
+    // spotLight.position.set(0, 64, 32);
+    // scene.add(spotLight);
 
     // Baseplate
     const baseplateGeometry = new THREE.BoxGeometry(100, 1, 100);
