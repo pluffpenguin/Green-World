@@ -25,11 +25,12 @@ function TextBox() {
         >
           <div className="text__box">
             <div className="text__wrapper">
+              <h1 className="text__box--title">Wind Turbines</h1>
               <p className="text">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Suscipit itaque ratione sunt necessitatibus, voluptas asperiores
-                hic temporibus saepe, omnis eum voluptatum quod corporis laborum
-                sint accusamus ipsam nihil quas quasi.
+                The blades in these large structures are designed to capture the
+                kinetic energy of the wind and convert it into electrical
+                energy. The blades are connected to a generator, which produces
+                electricity that can be transmitted to homes and businesses.
               </p>
             </div>
           </div>
