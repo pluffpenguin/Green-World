@@ -1,9 +1,8 @@
 import * as THREE from "three";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
-export default class model3D {
+export default class Model3D {
     constructor(path, scene, activationRadius) {
-        
         this.loadedModel = new THREE.Object3D();
         this.activationRadius = activationRadius;
         const loader = new GLTFLoader();
