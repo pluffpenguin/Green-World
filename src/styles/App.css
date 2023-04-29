@@ -22,6 +22,15 @@ NAV BAR
 
 */
 
+.navbar {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px;
+  width: 1100px;
+}
+
 /* LOGO */
 
 .logo__wrapper {
@@ -57,13 +66,6 @@ NAV BAR
 }
 
 /* ABOUT */
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 40px;
-}
 
 #about {
   padding: 8px 16px;
