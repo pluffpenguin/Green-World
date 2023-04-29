@@ -99,7 +99,8 @@ MODAL
   max-width: 800px;
   width: 100%;
   height: 600px;
-  padding: 0 40px;
+  margin: 0 40px;
+  border-radius: 20px;
 }
 
 .modal__half {
@@ -113,6 +114,7 @@ MODAL
 .modal__about {
   background-color: #242424;
   border-radius: 20px 0 0 20px;
+  box-shadow: 5px 5px 5px #242424;
 }
 
 .modal__about h2 {
@@ -124,6 +126,7 @@ MODAL
   background-color: #feffd4;
   color: #242424;
   border-radius: 0 20px 20px 0;
+  box-shadow: 5px 5px 5px #242424;
 }
 
 .modal__credits--list {

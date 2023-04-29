@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../assets/logo.png";
 
-function Nav({ setShowModal }) {
+function Nav({ showModal, setShowModal }) {
   return (
     <>
       <div className="container">
@@ -13,7 +13,7 @@ function Nav({ setShowModal }) {
             </h1>
           </figure>
           <div className="navbar__right">
-            <button onClick={() => setShowModal(true)} id="about">About</button>
+            <button onClick={() => setShowModal(!showModal)} id="about">About</button>
           </div>
         </nav>  
       </div>

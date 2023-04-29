@@ -52,7 +52,7 @@ function Home() {
   return (
     <>
       {/* <canvas id="myThreeJsCanvas" /> */}
-      <Nav setShowModal={setShowModal} />
+      <Nav showModal={showModal} setShowModal={setShowModal} />
 
       <AnimatePresence>
         {showModal && <Modal setShowModal={setShowModal} />}
