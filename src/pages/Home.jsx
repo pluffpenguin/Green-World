@@ -16,7 +16,7 @@ import {OBJLoader} from "three/addons/loaders/OBJLoader.js";
 import { VOXLoader} from "three/addons/loaders/VOXLoader.js";
 import { GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 
-import Model3D from "../Classes/importModels.jsx";
+import Model3D from "../Classes/importModels.js";
 
 import { TestBuilding } from "../Classes/testBuilding";
 
