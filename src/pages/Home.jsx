@@ -111,7 +111,7 @@ function Home() {
     // initializes into the scene
     let logoModel = new Model3D('src/assets/models/low_poly_earth.gltf', scene2, 10);
     const light = new THREE.PointLight(0xffffff, 2, 200);
-    light.position.set(4.5, 10, 4.5)
+    light.position.set(10, 10, 10)
     scene2.add(light)
     // [[ END OF MARIO 2 ]]
 
