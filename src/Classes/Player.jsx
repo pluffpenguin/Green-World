@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import Model3D from "./importModels.js";
+import Model3D from "./importModels.jsx";
 
 export default class PlayerClass{
     constructor(scene){
