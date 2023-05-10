@@ -22,10 +22,40 @@ import { TestBuilding } from "../Classes/testBuilding";
 
 import { InteractionSystem } from "../Classes/InteractionSystem";
 
+// Creating an edit-able textbox
 import TextBox from "../components/TextBox";
+import { Component } from "react";
 
 // Constant Variable Settings
 const playerMovespeed = 1;
+
+// ------------------------------------------------------------------------------------------
+
+class CustomTextbox extends Component
+{
+  constructor(props){
+    super(props);
+    this.state = {
+      text: ""
+    }
+    this.changeText = this.changeText.bind(this);
+  }
+  
+  changeText(newText){
+    this.setState({
+      text: newText
+    });
+  }
+
+  render(){
+    return(
+      <div>
+        <p>{this.state.text}</p>
+      </div>
+    );
+  }
+}
+
 // ------------------------------------------------------------------------------------------
 // [[ HELPER FUNCTIONS ]]
 function setup_map(scene){
