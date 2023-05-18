@@ -50,7 +50,8 @@ class CustomTextbox extends Component
   render(){
     return(
       <div>
-        <p>{this.state.text}</p>
+        <p id="CustomTextboxParagraph">{this.state.text}</p>
+        <button onClick={changeText("new text")}></button>
       </div>
     );
   }
@@ -193,7 +194,6 @@ function Home() {
     let system = new InteractionSystem(scene);
     system.setup_buildings();
 
-
     let count = 0;
     let countMax = 20;
 
@@ -238,6 +238,7 @@ function Home() {
         showModal={showModal}
         setShowModal={setShowModal}
       />
+      <CustomTextbox />
       <canvas id="myThreeJsCanvas" />
 
       <AnimatePresence>
